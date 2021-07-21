@@ -1,0 +1,62 @@
+########################################################### SETUP ##################################################################
+setwd("~/Desktop/DissertationR")
+
+library(coala)
+activate_msms(jar = "~/Desktop/DissertationR/msms/lib/msms.jar", priority = 500, download = FALSE)
+
+list_simulators()
+
+################################################### OoA POWER PLOTS ################################################################
+
+load("Tajneutralpwr1.RData")
+load("Tajneutralpwr2.RData")
+load("nuc_divneutralpwr1.RData")
+load("nuc_divneutralpwr2.RData")
+
+save(FPRs1, file = "OoATajpwr1.RData")
+save(FPRs2, file = "OoATajpwr2.RData")
+save(FPRs3, file = "OoAnuc_divpwr1.RData")
+save(FPRs3, file = "OoAnuc_divpwr2.RData")
+
+par(mfrow = c(1,1))
+
+### s = 0.04
+load("Tajneutralpwr1.RData")
+coeff1taj <- c(FPRs2[[1]][1],FPRs2[[2]][1],FPRs2[[3]][1],FPRs2[[4]][1],FPRs2[[5]][1],FPRs2[[6]][1])
+load("OoATajpwr1.RData")
+coeff2taj <- c(FPRs1[[1]][1],FPRs1[[2]][1],FPRs1[[3]][1],FPRs1[[4]][1],FPRs1[[5]][1],FPRs1[[6]][1])
+load("nuc_divneutralpwr1.RData")
+coeff1nucdiv <- c(FPRs6[[1]][1],FPRs6[[2]][1],FPRs6[[3]][1],FPRs6[[4]][1],FPRs6[[5]][1],FPRs6[[6]][1])
+load("OoAnuc_divpwr1.RData")
+coeff2nucdiv <- c(FPRs3[[1]][1],FPRs3[[2]][1],FPRs3[[3]][1],FPRs3[[4]][1],FPRs3[[5]][1],FPRs3[[6]][1])
+plot(coeff2taj, type = "o", lty = 2, lwd = 2, col = "pink", ylim = c(0.0:1.0), axes = FALSE, ann = FALSE)
+axis(1, at=1:6, lab = c("5 kya", "10 kya", "20 kya", "50 kya", "100 kya", "200 kya"))
+axis(2, tick = , las = 1, at = c(0.0,0.2,0.4,0.6,0.8,1.0))
+box()
+lines(coeff2nucdiv, type = "o", pch = 21, lty = 2, lwd = 2, col = "lightblue")
+lines(coeff1taj, type = "o", pch = 21, lty = "solid", lwd = 2, col = "pink")
+lines(coeff1nucdiv, type = "o", pch = 21, lty = "solid", lwd = 2, col = "lightblue")
+title(main = "s = 0.04")
+title(xlab = "Time interval")
+title(ylab = "Power")
+legend("topleft", cex = 0.7, c("OoA Tajima's D", "OoA nucleotide diversity (π)","Neutral Tajima's D", "Neutral nucleotide diversity (π)"), col = c("pink", "lightblue", "pink", "lightblue"), pch = 21, lty = c(2,2,1,1))
+### s = 0.06
+load("Tajneutralpwr2.RData")
+coeff3taj <- c(FPRs3[[1]][1],FPRs3[[2]][1],FPRs3[[3]][1],FPRs3[[4]][1],FPRs3[[5]][1],FPRs3[[6]][1])
+load("OoATajpwr2.RData")
+coeff4taj <- c(FPRs2[[1]][1],FPRs2[[2]][1],FPRs2[[3]][1],FPRs2[[4]][1],FPRs2[[5]][1],FPRs2[[6]][1])
+load("nuc_divneutralpwr2.RData")
+coeff3nucdiv <- c(FPRs7[[1]][1],FPRs7[[2]][1],FPRs7[[3]][1],FPRs7[[4]][1],FPRs7[[5]][1],FPRs7[[6]][1])
+load("OoAnuc_divpwr2.RData")
+coeff4nucdiv <- c(FPRs4[[1]][1],FPRs4[[2]][1],FPRs4[[3]][1],FPRs4[[4]][1],FPRs4[[5]][1],FPRs4[[6]][1])
+plot(coeff3taj, type = "o", lty = "solid", lwd = 2, col = "pink", ylim = c(0.0:1.0), axes = FALSE, ann = FALSE)
+axis(1, at=1:6, lab = c("5 kya", "10 kya", "20 kya", "50 kya", "100 kya", "200 kya"))
+axis(2, tick = , las = 1, at = c(0.0,0.2,0.4,0.6,0.8,1.0))
+box()
+lines(coeff3nucdiv, type = "o", pch = 21, lty = "solid", lwd = 2, col = "lightblue")
+lines(coeff4taj, type = "o", pch = 21, lty = 2, lwd = 2, col = "pink")
+lines(coeff4nucdiv, type = "o", pch = 21, lty = 2, lwd = 2, col = "lightblue")
+title(main = "s = 0.06")
+title(xlab = "Time interval")
+title(ylab = "Power")
+legend("center", cex = 0.7, c("OoA Tajima's D", "OoA nucleotide diversity (π)","Neutral Tajima's D", "Neutral nucleotide diversity (π)"), col = c("pink", "lightblue", "pink", "lightblue"), pch = 21, lty = c(2,2,1,1))
